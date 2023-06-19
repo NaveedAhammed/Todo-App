@@ -1,0 +1,293 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #0F0F0F;
+  position: relative;
+}
+
+.header {
+  background-color: #FFC800;
+  color: #0F0F0F;
+  padding: 1rem 2rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .icon {
+      width: 4rem;
+    }
+
+    .heading {
+      font-size: 2rem;
+    }
+  }
+}
+
+.add-item {
+  background-color: #FFC800;
+  color: #0F0F0F;
+  display: inline-block;
+  padding: 1rem;
+  border-radius: 50%;
+  position: fixed;
+  right: 4rem;
+  bottom: 4rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+  }
+
+  .add__icon {
+    width: 4rem;
+  }
+}
+
+.main {
+  min-height: calc(100vh - 60px);
+
+  .heading-secondary {
+    font-size: 3rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .container__grid {
+    display: grid;
+    padding: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3rem;
+    align-items: start;
+
+    .task__item {
+      padding: 2rem;
+      background-color: #f7f7f7;
+      color: #0F0F0F;
+      border-radius: 5px;
+      box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.15);
+      position: relative;
+
+      &:hover .delete,
+      &:hover .edit {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .delete,
+      .check,
+      .edit {
+        position: absolute;
+        cursor: pointer;
+        stroke: #777;
+        transition: all 0.3s;
+      }
+
+      .check {
+        display: inline-block;
+        width: 3rem;
+        top: -1rem;
+        left: -1rem;
+
+        .check__icon {
+          width: 3rem;
+          pointer-events: none;
+        }
+      }
+
+      .check.checked .check__icon {
+        fill: #FFC800;
+        stroke: #0F0F0F;
+        width: 2.6rem;
+      }
+
+      .check.checked~.task__title,
+      .check.checked~.task__desc {
+        text-decoration: line-through;
+        transform: scale(0.9);
+      }
+
+      .delete {
+        width: 3rem;
+        right: 1px;
+        bottom: 1px;
+        opacity: 0;
+        visibility: hidden;
+
+        &:hover .delete__icon {
+          stroke: #c80505;
+        }
+
+        .delete__icon {
+          width: 3rem;
+          pointer-events: none;
+        }
+      }
+
+      .edit {
+        width: 2rem;
+        top: -1rem;
+        right: -1rem;
+        opacity: 0;
+        visibility: hidden;
+
+        .edit__icon {
+          width: 2rem;
+          pointer-events: none;
+        }
+      }
+
+      .task__title {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        transition: all 0.3s;
+      }
+
+      .task__desc {
+        font-size: 1.4rem;
+        line-height: 1.5;
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  .form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 3px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(120deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+    z-index: 99;
+
+    .container {
+      width: 35%;
+      padding: 5rem;
+      background-color: #f7f7f7;
+      box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.15);
+
+      .title {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 3rem;
+        color: #000;
+      }
+
+      .form__group {
+        width: 100%;
+        position: relative;
+        margin-bottom: 3rem;
+
+        .label {
+          display: block;
+          color: #000;
+          font-size: 1.2rem;
+          font-weight: 400;
+          position: absolute;
+          top: -2rem;
+          left: 2rem;
+          opacity: 1;
+          z-index: 1;
+          transition: all 0.3s;
+        }
+
+        .input,
+        .textarea {
+          display: block;
+          width: 100%;
+          padding: 1rem 2rem;
+          border-radius: 5px;
+          border: 2px solid transparent;
+          font-family: inherit;
+
+          &:focus {
+            outline: none;
+            border: 2px solid #FFC800;
+          }
+        }
+
+        .input:focus,
+        .textarea:focus {
+          box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+        }
+
+        .textarea {
+          resize: none;
+        }
+
+        .input:placeholder-shown~.label,
+        .textarea:placeholder-shown~.label {
+          top: 1.5rem;
+          left: 2rem;
+          opacity: 0;
+          z-index: -1;
+        }
+      }
+
+      .actions {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+
+        .btn {
+          width: 100%;
+          padding: 1rem 2rem;
+          border: none;
+          border-radius: 5px;
+          font-size: 1.6rem;
+          cursor: pointer;
+          transition: all 0.3s;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+          }
+
+          &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        .btn-cancel {
+          background-color: #c80505;
+          color: #fff;
+        }
+
+        .btn-add {
+          background-color: #FFC800;
+          color: #0F0F0F;
+        }
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}
